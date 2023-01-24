@@ -6,6 +6,7 @@ RF24 radio(9, 10); // CE, CSN
 
 const byte address[6] = "00001";
 
+int pista = 0;
 int isPassed = 0;
 double tempoI = 0;
 double cronos = 0;
@@ -23,6 +24,7 @@ void setup() {
 }
 
 void loop() {
+
   
   if (radio.available()){
     
