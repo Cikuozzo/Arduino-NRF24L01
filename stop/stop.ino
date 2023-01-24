@@ -6,6 +6,8 @@ RF24 radio(9, 10); // CE, CSN
 
 const byte address[6] = "00001";
 
+int isPassed = 1;
+
 void setup() {
   radio.begin();
   radio.openWritingPipe(address);
@@ -19,7 +21,6 @@ void setup() {
 
 void loop() {
 
-  int isPassed = 0;
   digitalWrite(2, LOW);
   delayMicroseconds(4);
   digitalWrite(2, HIGH);
@@ -32,11 +33,10 @@ void loop() {
 
   if(cm <= 100){
     
-    isPassed = 1;
+    isPassed = 2;
     radio.write(&isPassed, sizeof(isPassed));
     delay(1000);
      
   }
-  
   
 }
