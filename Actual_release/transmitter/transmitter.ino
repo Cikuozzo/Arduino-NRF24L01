@@ -9,6 +9,8 @@ int valore;  //dichiaro la variabile valore che memorizzerà il valore dato dal 
 int portarossa = 5; 
 int portaverde = 6; 
 int portablu = 7;
+int isPassed;
+
 
 void colore (unsigned char rosso, unsigned char verde, unsigned char blu)
 {
@@ -34,6 +36,23 @@ void setup() {
 
 void loop() {
 
+  long t = pulseIn(4, HIGH);
+
+  long cm = t / 29 / 2; //time convert distance
+  
+  digitalWrite(2, LOW);
+  delayMicroseconds(4);
+  digitalWrite(2, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(2, LOW);
+
+  if(cm <= 100){
+    
+    isPassed = 1;
+    radio.write(&isPassed, sizeof(isPassed));
+    delay(1000);
+    isPassed = 0 ;
+  }
   valore=analogRead(0); //Leggo il valore analogico alla porta A0 e lo metto dentro "valore"
   if (valore>=750) //se valore maggiore di 573 allora....
    {
@@ -47,25 +66,5 @@ void loop() {
    {
      colore(255, 0, 0);
    }
-
-  int isPassed = 0;
-  digitalWrite(2, LOW);
-  delayMicroseconds(4);
-  digitalWrite(2, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(2, LOW);
-  
-  long t = pulseIn(4, HIGH);
-
-  long cm = t / 29 / 2; //time convert distance
-
-  if(cm <= 100){
-    
-    isPassed = 1;
-    radio.write(&isPassed, sizeof(isPassed));
-    delay(1000);
-     
-  }
-  
-  
+   
 }
